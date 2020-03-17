@@ -82,9 +82,8 @@ public class GameEngine2048 extends JPanel {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 100; i++) {
+                while (gamestate == State.running) {
                     move();
-
                 }
             }
 
@@ -170,10 +169,10 @@ public class GameEngine2048 extends JPanel {
             g.setFont(new Font("SansSerif", Font.BOLD, 20));
 
             if (gamestate == State.won) {
-                g.drawString("you made it!", 390, 350);
+                g.drawString("you made it! Score: " + score + ", highest tile:  " + highest , 250, 350);
 
             } else if (gamestate == State.over)
-                g.drawString("game over", 400, 350);
+                g.drawString("game over! Score: " + score + ", highest tile: " + highest, 250, 350);
 
             g.setColor(gridColor);
             g.drawString("click to start a new game", 330, 470);

@@ -51,7 +51,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>fi.hy.demo.Game2048</mainClass>
+                            <mainClass>fi.hy.demo.GameEngine2048</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -69,7 +69,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>fi.hy.demo.Game2048</mainClass>
+                    <mainClass>fi.hy.demo.GameEngine2048</mainClass>
                 </configuration>
             </plugin>
         </plugins>
