@@ -7,5 +7,5 @@ public interface Bot {
         DOWN,
         LEFT
     }
-    direction decideMove(Tile[][] tiles);
+    direction decideMove(Board tiles);
 }

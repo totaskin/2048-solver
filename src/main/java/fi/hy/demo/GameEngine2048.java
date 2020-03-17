@@ -2,18 +2,18 @@ package fi.hy.demo;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 import javax.swing.*;
 
 public class GameEngine2048 extends JPanel {
 
 
-    enum State {
-        start, won, running, over
-    }
+    private final Board board;
+    private int side;
 
     public GameEngine2048(Bot bot) {
         this.bot = bot;
+        side = 4;
+        this.board = new Board();
         setPreferredSize(new Dimension(900, 700));
         setBackground(new Color(0xFAF8EF));
         setFont(new Font("SansSerif", Font.BOLD, 48));
@@ -22,7 +22,7 @@ public class GameEngine2048 extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                restartGame();
+                board.restartGame();
                 repaint();
             }
         });
@@ -37,16 +37,16 @@ public class GameEngine2048 extends JPanel {
                         startBot();
                         break;
                     case KeyEvent.VK_UP:
-                        moveUp();
+                        board.moveUp();
                         break;
                     case KeyEvent.VK_DOWN:
-                        moveDown();
+                        board.moveDown();
                         break;
                     case KeyEvent.VK_LEFT:
-                        moveLeft();
+                        board.moveLeft();
                         break;
                     case KeyEvent.VK_RIGHT:
-                        moveRight();
+                        board.moveRight();
                         break;
                 }
                 repaint();
@@ -60,29 +60,25 @@ public class GameEngine2048 extends JPanel {
             new Color(0xffc4c3), new Color(0xE7948e), new Color(0xbe7e56),
             new Color(0xbe5e56), new Color(0x9c3931), new Color(0x701710)};
 
-    final static int target = 2048;
 
-    static int highest;
-    static int score;
+
+
 
     private Color gridColor = new Color(0xBBADA0);
     private Color emptyColor = new Color(0xCDC1B4);
     private Color startColor = new Color(0xFFEBCD);
 
-    private Random rand = new Random();
 
-    private Tile[][] tiles;
+
+
     private Bot bot;
 
-    private int side = 4;
-    private State gamestate = State.start;
-    private boolean checkingAvailableMoves;
 
     private void startBot()  {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (gamestate == State.running) {
+                while (board.getGameState() == Board.State.running) {
                     move();
                 }
             }
@@ -94,7 +90,7 @@ public class GameEngine2048 extends JPanel {
                     ex.printStackTrace();
                 }
                 try {
-                    Bot.direction direction = bot.decideMove(tiles);
+                    Bot.direction direction = bot.decideMove(board);
                     Robot robObject = new Robot();
                     switch (direction) {
                         case UP:
@@ -130,27 +126,16 @@ public class GameEngine2048 extends JPanel {
         drawGrid(g);
     }
 
-    void restartGame() {
-        if (gamestate != State.running) {
-            System.out.println("start");
-            score = 0;
-            highest = 0;
-            gamestate = State.running;
-            tiles = new Tile[side][side];
-            addRandomTile();
-            addRandomTile();
-        }
-    }
 
     void drawGrid(Graphics2D g) {
         g.setColor(gridColor);
         g.fillRoundRect(200, 100, 499, 499, 15, 15);
 
-        if (gamestate == State.running) {
+        if (board.getGameState() == Board.State.running) {
 
             for (int r = 0; r < side; r++) {
                 for (int c = 0; c < side; c++) {
-                    if (tiles[r][c] == null) {
+                    if (board.getTiles()[r][c] == null) {
                         g.setColor(emptyColor);
                         g.fillRoundRect(215 + c * 121, 115 + r * 121, 106, 106, 7, 7);
                     } else {
@@ -168,11 +153,11 @@ public class GameEngine2048 extends JPanel {
 
             g.setFont(new Font("SansSerif", Font.BOLD, 20));
 
-            if (gamestate == State.won) {
-                g.drawString("you made it! Score: " + score + ", highest tile:  " + highest , 250, 350);
+            if (board.getGameState() == Board.State.won) {
+                g.drawString("you made it! Score: " + board.getScore() + ", highest tile:  " + board.getHighest() , 250, 350);
 
-            } else if (gamestate == State.over)
-                g.drawString("game over! Score: " + score + ", highest tile: " + highest, 250, 350);
+            } else if (board.getGameState() == Board.State.over)
+                g.drawString("game over! Score: " + board.getScore() + ", highest tile: " + board.getHighest(), 250, 350);
 
             g.setColor(gridColor);
             g.drawString("click to start a new game", 330, 470);
@@ -182,7 +167,7 @@ public class GameEngine2048 extends JPanel {
     }
 
     void drawTile(Graphics2D g, int r, int c) {
-        int value = tiles[r][c].getValue();
+        int value =  board.getTiles()[r][c].getValue();
 
         g.setColor(colorTable[(int) (Math.log(value) / Math.log(2)) + 1]);
         g.fillRoundRect(215 + c * 121, 115 + r * 121, 106, 106, 7, 7);
@@ -198,114 +183,6 @@ public class GameEngine2048 extends JPanel {
         int y = 115 + r * 121 + (asc + (106 - (asc + dec)) / 2);
 
         g.drawString(s, x, y);
-    }
-
-
-    private void addRandomTile() {
-        int pos = rand.nextInt(side * side);
-        int row, col;
-        do {
-            pos = (pos + 1) % (side * side);
-            row = pos / side;
-            col = pos % side;
-        } while (tiles[row][col] != null);
-
-        int val = rand.nextInt(10) == 0 ? 4 : 2;
-        tiles[row][col] = new Tile(val);
-    }
-
-    private boolean move(int countDownFrom, int yIncr, int xIncr) {
-        boolean moved = false;
-
-        for (int i = 0; i < side * side; i++) {
-            int j = Math.abs(countDownFrom - i);
-
-            int r = j / side;
-            int c = j % side;
-
-            if (tiles[r][c] == null)
-                continue;
-
-            int nextR = r + yIncr;
-            int nextC = c + xIncr;
-
-            while (nextR >= 0 && nextR < side && nextC >= 0 && nextC < side) {
-
-                Tile next = tiles[nextR][nextC];
-                Tile curr = tiles[r][c];
-
-                if (next == null) {
-
-                    if (checkingAvailableMoves)
-                        return true;
-
-                    tiles[nextR][nextC] = curr;
-                    tiles[r][c] = null;
-                    r = nextR;
-                    c = nextC;
-                    nextR += yIncr;
-                    nextC += xIncr;
-                    moved = true;
-
-                } else if (next.canMergeWith(curr)) {
-
-                    if (checkingAvailableMoves)
-                        return true;
-
-                    int value = next.mergeWith(curr);
-                    if (value > highest)
-                        highest = value;
-                    score += value;
-                    tiles[r][c] = null;
-                    moved = true;
-                    break;
-                } else
-                    break;
-            }
-        }
-
-        if (moved) {
-            if (highest < target) {
-                clearMerged();
-                addRandomTile();
-                if (!movesAvailable()) {
-                    gamestate = State.over;
-                }
-            } else if (highest == target)
-                gamestate = State.won;
-        }
-
-        return moved;
-    }
-
-    boolean moveUp() {
-        return move(0, -1, 0);
-    }
-
-    boolean moveDown() {
-        return move(side * side - 1, 1, 0);
-    }
-
-    boolean moveLeft() {
-        return move(0, 0, -1);
-    }
-
-    boolean moveRight() {
-        return move(side * side - 1, 0, 1);
-    }
-
-    void clearMerged() {
-        for (Tile[] row : tiles)
-            for (Tile tile : row)
-                if (tile != null)
-                    tile.setMerged(false);
-    }
-
-    boolean movesAvailable() {
-        checkingAvailableMoves = true;
-        boolean hasMoves = moveUp() || moveDown() || moveLeft() || moveRight();
-        checkingAvailableMoves = false;
-        return hasMoves;
     }
 
     public void startGame(Bot bot) {
