@@ -4,7 +4,7 @@ public class MonteCarlo implements Bot{
 
 
     @Override
-    public direction decideMove(Board tiles) {
+    public direction decideMove(Board board) {
         double random = Math.random();
         if(random < 0.25)
             return direction.UP;

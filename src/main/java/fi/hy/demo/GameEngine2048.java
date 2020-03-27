@@ -8,7 +8,16 @@ public class GameEngine2048 extends JPanel {
 
 
     private final Board board;
+    private Bot bot;
     private int side;
+    private Color gridColor = new Color(0xBBADA0);
+    private Color emptyColor = new Color(0xCDC1B4);
+    private Color startColor = new Color(0xFFEBCD);
+    final Color[] colorTable = {
+            new Color(0x701710), new Color(0xFFE4C3), new Color(0xfff4d3),
+            new Color(0xffdac3), new Color(0xe7b08e), new Color(0xe7bf8e),
+            new Color(0xffc4c3), new Color(0xE7948e), new Color(0xbe7e56),
+            new Color(0xbe5e56), new Color(0x9c3931), new Color(0x701710)};
 
     public GameEngine2048(Bot bot) {
         this.bot = bot;
@@ -26,8 +35,6 @@ public class GameEngine2048 extends JPanel {
                 repaint();
             }
         });
-
-
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -53,26 +60,6 @@ public class GameEngine2048 extends JPanel {
             }
         });
     }
-
-    final Color[] colorTable = {
-            new Color(0x701710), new Color(0xFFE4C3), new Color(0xfff4d3),
-            new Color(0xffdac3), new Color(0xe7b08e), new Color(0xe7bf8e),
-            new Color(0xffc4c3), new Color(0xE7948e), new Color(0xbe7e56),
-            new Color(0xbe5e56), new Color(0x9c3931), new Color(0x701710)};
-
-
-
-
-
-    private Color gridColor = new Color(0xBBADA0);
-    private Color emptyColor = new Color(0xCDC1B4);
-    private Color startColor = new Color(0xFFEBCD);
-
-
-
-
-    private Bot bot;
-
 
     private void startBot()  {
         Thread t = new Thread(new Runnable() {
