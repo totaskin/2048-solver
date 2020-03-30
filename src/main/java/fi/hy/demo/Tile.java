@@ -1,11 +1,16 @@
 package fi.hy.demo;
 
-class Tile {
-    private boolean merged;
-    private int value;
+class Tile implements Cloneable {
+    boolean merged;
+    int value;
 
     Tile(int val) {
         value = val;
+    }
+
+    public Tile(int value, boolean merged) {
+        this.merged = merged;
+        this.value = value;
     }
 
     int getValue() {
@@ -27,5 +32,10 @@ class Tile {
             return value;
         }
         return -1;
+    }
+
+    public Tile Clone() {
+        Tile tile = new Tile(this.value, this.merged);
+        return tile;
     }
 }

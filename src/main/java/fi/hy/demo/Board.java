@@ -8,12 +8,24 @@ public class Board {
         start, won, running, over
     }
 
+    public Board() {
+        this.score = 0;
+        this.highest = 0;
+    }
+
+    public Board(Tile[][] clone, int score, int highest, State gamestate) {
+        this.tiles = clone;
+        this.score = score;
+        this.highest = highest;
+        this.gamestate = gamestate;
+    }
+
     private Tile[][] tiles;
-    static int highest;
-    static int score;
+    private int highest;
+    private int score;
     private State gamestate = State.start;
     private boolean checkingAvailableMoves;
-    private int side = 4;
+    private static int side = 4;
     private Random rand = new Random();
     final static int target = 2048;
 
@@ -34,16 +46,16 @@ public class Board {
 
             while (nextR >= 0 && nextR < side && nextC >= 0 && nextC < side) {
 
-                Tile next = tiles[nextR][nextC];
-                Tile curr = tiles[r][c];
+                Tile next = this.tiles[nextR][nextC];
+                Tile curr = this.tiles[r][c];
 
                 if (next == null) {
 
-                    if (checkingAvailableMoves)
+                    if (this.checkingAvailableMoves)
                         return true;
 
-                    tiles[nextR][nextC] = curr;
-                    tiles[r][c] = null;
+                    this.tiles[nextR][nextC] = curr;
+                    this.tiles[r][c] = null;
                     r = nextR;
                     c = nextC;
                     nextR += yIncr;
@@ -52,14 +64,14 @@ public class Board {
 
                 } else if (next.canMergeWith(curr)) {
 
-                    if (checkingAvailableMoves)
+                    if (this.checkingAvailableMoves)
                         return true;
 
                     int value = next.mergeWith(curr);
-                    if (value > highest)
-                        highest = value;
-                    score += value;
-                    tiles[r][c] = null;
+                    if (value > this.highest)
+                        this.highest = value;
+                    this.score += value;
+                    this.tiles[r][c] = null;
                     moved = true;
                     break;
                 } else
@@ -68,14 +80,14 @@ public class Board {
         }
 
         if (moved) {
-            if (highest < target) {
+            if (this.highest < this.target) {
                 clearMerged();
                 addRandomTile();
                 if (!movesAvailable()) {
-                    gamestate = State.over;
+                    this.gamestate = State.over;
                 }
             } else if (highest == target)
-                gamestate = State.won;
+                this.gamestate = State.won;
         }
 
         return moved;
@@ -151,6 +163,21 @@ public class Board {
 
     public int getHighest() {
         return highest;
+    }
+
+    public Board copyBoard() {
+        Tile[][] tiles = new Tile[side][side];
+        for (int x = 0; x < side; x++) {
+            for (int y = 0; y < side; y++) {
+                Tile tile = this.tiles[x][y];
+                if (tile != null) {
+                    tiles[x][y] = tile.Clone();
+                }
+            }
+        }
+
+
+        return new Board(tiles, this.score, this.highest, this.gamestate);
     }
 
 

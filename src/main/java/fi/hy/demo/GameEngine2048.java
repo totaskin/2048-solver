@@ -61,40 +61,46 @@ public class GameEngine2048 extends JPanel {
         });
     }
 
-    private void startBot()  {
+    private void startBot() {
         Thread t = new Thread(new Runnable() {
+            private Robot robObject;
+
             @Override
             public void run() {
+                try {
+                    this.robObject = new Robot();
+                } catch (AWTException e) {
+                    e.printStackTrace();
+                }
                 while (board.getGameState() == Board.State.running) {
                     move();
                 }
+                System.out.println("endded" + board.getGameState());
             }
 
             private void move() {
                 try {
+                    System.out.println("sleep" );
                     Thread.sleep(50);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
-                try {
-                    Bot.direction direction = bot.decideMove(board);
-                    Robot robObject = new Robot();
-                    switch (direction) {
-                        case UP:
-                            robObject.keyPress(KeyEvent.VK_UP);
-                            break;
-                        case DOWN:
-                            robObject.keyPress(KeyEvent.VK_DOWN);
-                            break;
-                        case LEFT:
-                            robObject.keyPress(KeyEvent.VK_LEFT);
-                            break;
-                        case RIGHT:
-                            robObject.keyPress(KeyEvent.VK_RIGHT);
-                            break;
-                    }
-                } catch (AWTException e1) {
-                    e1.printStackTrace();
+                System.out.println("get direction");
+                Bot.direction direction = bot.decideMove(board);
+                System.out.println("decide" + direction);
+                switch (direction) {
+                    case UP:
+                        robObject.keyPress(KeyEvent.VK_UP);
+                        break;
+                    case DOWN:
+                        robObject.keyPress(KeyEvent.VK_DOWN);
+                        break;
+                    case LEFT:
+                        robObject.keyPress(KeyEvent.VK_LEFT);
+                        break;
+                    case RIGHT:
+                        robObject.keyPress(KeyEvent.VK_RIGHT);
+                        break;
                 }
             }
         });
@@ -141,7 +147,7 @@ public class GameEngine2048 extends JPanel {
             g.setFont(new Font("SansSerif", Font.BOLD, 20));
 
             if (board.getGameState() == Board.State.won) {
-                g.drawString("you made it! Score: " + board.getScore() + ", highest tile:  " + board.getHighest() , 250, 350);
+                g.drawString("you made it! Score: " + board.getScore() + ", highest tile:  " + board.getHighest(), 250, 350);
 
             } else if (board.getGameState() == Board.State.over)
                 g.drawString("game over! Score: " + board.getScore() + ", highest tile: " + board.getHighest(), 250, 350);
@@ -154,7 +160,7 @@ public class GameEngine2048 extends JPanel {
     }
 
     void drawTile(Graphics2D g, int r, int c) {
-        int value =  board.getTiles()[r][c].getValue();
+        int value = board.getTiles()[r][c].getValue();
 
         g.setColor(colorTable[(int) (Math.log(value) / Math.log(2)) + 1]);
         g.fillRoundRect(215 + c * 121, 115 + r * 121, 106, 106, 7, 7);
