@@ -37,7 +37,7 @@ public class MonteCarlo implements Bot {
                 }
                 gameMoves++;
                 //generate random next move
-                input = (int) (Math.random() * 4);
+                input = getRandom();
 
                 makeMove(input, boardCopy);
 
@@ -75,6 +75,19 @@ public class MonteCarlo implements Bot {
         moveLeft = moveLeft / moveLeftCount;
 
         // return best move
+        direction x = getDirection(moveUp, moveDown, moveRight, moveLeft);
+        if (x != null) return x;
+
+
+        System.out.println("should not come herer");
+        return direction.DOWN;
+    }
+
+    private int getRandom() {
+        return (int) (Math.random() * 4);
+    }
+
+    public direction getDirection(long moveUp, long moveDown, long moveRight, long moveLeft) {
         if (moveUp >= moveDown && moveUp >= moveLeft && moveUp >= moveRight) {
             return direction.UP;
         } else if (moveRight >= moveDown && moveRight >= moveLeft && moveRight >= moveUp) {
@@ -84,13 +97,10 @@ public class MonteCarlo implements Bot {
         } else if (moveDown >= moveUp && moveDown >= moveRight && moveDown >= moveLeft) {
             return direction.DOWN;
         }
-
-
-        System.out.println("should not come herer");
-        return direction.DOWN;
+        return null;
     }
 
-    private void makeMove(int input, Board boardCopy) {
+    public void makeMove(int input, Board boardCopy) {
         switch (input) {
             case 0:
                 boardCopy.moveUp();
