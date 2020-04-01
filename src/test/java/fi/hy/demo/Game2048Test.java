@@ -8,9 +8,9 @@ import static org.hamcrest.Matchers.is;
 
 class Game2048Test {
 
-	@Test
-	void testBot() {
-		assertThat(2, is(equalTo(2)));
-	}
+  @Test
+  void testBot() {
+    assertThat(2, is(equalTo(2)));
+  }
 
 }
