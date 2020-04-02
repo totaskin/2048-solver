@@ -11,4 +11,15 @@ Testataan kaikki luokan metodit erilaisilla syötteillä, rajattuna hyviin tapau
 
 Ajamalla monte carlo algoritmia huomataan, että noin 100 iteraation jälkeen lopputulos ei parane, mutta aikavaatimus
 kasvaa lineaarisesti.
-![Suoritskyky](time.png)
+![Suoritskyky](monte-carlo.png)
+
+# Random bot
+
+Random bot suoriutuu vakioajassa ja tulokset pysyvät alhaisina, kuten kuvasta huomataan.
+![Suoritskyky](random-bot.png)
+
+
+# Yhteenveto
+
+Random bot pääsee parhaimmillaan noin `83%` monte-carlo botin tuloksesta, kun monte-carlia suoritetaan 10-iteraation 
+parametrilla.  
