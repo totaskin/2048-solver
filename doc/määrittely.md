@@ -6,7 +6,11 @@ päätöksiä ja toinen on monte carlon pelipuu.
 Ohjelmalle voidaan antaa main -metodissa käytettävä luokka, mitä käytetään pelin ratkaisemiseen. Tämä mahdollistaa
 pelille erilaisten algoritmien tekemisen.
 # Aika ja tilavaatimukset
-Tavoitteena on  O(n^2) aikavaatimuksen mukainen algoritmi ja pyrkiä pääsemään O(n) aikavaatimukseen.
+Monte carlon algoritkin aikavaatimus O(mkI), jossa `m = ajojen lukumäärä`, `k = läpikäytyjen polkujen lukumäärä`. 
+Algoritmissa ajetaan m-kappaletta peliä ja valitaan näistä todennäköisesti parhaaseen lopputulokseen päässyt reitti.
+
+Tilavaatimus on O(m), koska algorimi luo jokaisella iteraatiolla uuden pelin ja tallentaa tuloksen muistiin.   
 # Lähteet
+http://stanford.edu/~rezab/classes/cme323/S15/projects/montecarlo_search_tree_report.pdf
 https://towardsdatascience.com/2048-solving-2048-with-monte-carlo-tree-search-ai-2dbe76894bab
   

@@ -1,7 +1,5 @@
 package fi.hy.demo.bot;
 
-import fi.hy.demo.bot.Direction;
-import fi.hy.demo.bot.MonteCarlo;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;

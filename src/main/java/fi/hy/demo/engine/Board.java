@@ -158,7 +158,6 @@ public class Board {
    */
   public void restartGame() {
     if (gamestate != State.running) {
-      System.out.println("start");
       score = 0;
       highest = 0;
       gamestate = State.running;
