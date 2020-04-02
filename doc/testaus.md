@@ -11,6 +11,7 @@ Testataan kaikki luokan metodit erilaisilla syötteillä, rajattuna hyviin tapau
 
 Ajamalla monte carlo algoritmia huomataan, että noin 100 iteraation jälkeen lopputulos ei parane, mutta aikavaatimus
 kasvaa lineaarisesti.
+
 ![Suoritskyky](monte-carlo.png)
 
 # Random bot
