@@ -39,10 +39,10 @@ public class MonteCarlo implements Bot {
     for (int i = 0; i < runs; i++) {
 
       Board boardCopy = board.copyBoard();
-      int count = 0;
-      int firstMove = -1;
+      long count = 0;
+      long firstMove = -1;
 
-      while (!boardCopy.getGameState().equals(State.over)) {
+      while (boardCopy.getGameState().equals(State.running)) {
         //generate random next move
         input = getRandom();
 

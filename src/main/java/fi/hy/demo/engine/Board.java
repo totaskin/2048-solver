@@ -10,7 +10,7 @@ public class Board {
   private final Random rand = new Random();
   private Tile[][] tiles;
   private int highest;
-  private int score;
+  private long score;
   private State gamestate = State.start;
   private boolean checkingAvailableMoves;
 
@@ -27,7 +27,7 @@ public class Board {
    * @param highest   highest tile at game.
    * @param gamestate State of game.
    */
-  public Board(Tile[][] clone, int score, int highest, State gamestate) {
+  public Board(Tile[][] clone, long score, int highest, State gamestate) {
     this.tiles = clone;
     this.score = score;
     this.highest = highest;
@@ -175,7 +175,7 @@ public class Board {
     return tiles;
   }
 
-  public int getScore() {
+  public long getScore() {
     return score;
   }
 

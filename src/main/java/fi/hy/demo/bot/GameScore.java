@@ -2,10 +2,10 @@ package fi.hy.demo.bot;
 
 public class GameScore {
   private long time;
-  private int score;
+  private long score;
   private int highest;
 
-  public GameScore(long time, int score, int highest) {
+  public GameScore(long time, long score, int highest) {
     this.time = time;
     this.score = score;
     this.highest = highest;
@@ -15,7 +15,7 @@ public class GameScore {
     return time;
   }
 
-  public int getScore() {
+  public long getScore() {
     return score;
   }
 
