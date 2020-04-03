@@ -31,7 +31,9 @@ public class GameEngine2048 extends JPanel {
     new Color(0x701710), new Color(0xFFE4C3), new Color(0xfff4d3),
     new Color(0xffdac3), new Color(0xe7b08e), new Color(0xe7bf8e),
     new Color(0xffc4c3), new Color(0xE7948e), new Color(0xbe7e56),
-    new Color(0xbe5e56), new Color(0x9c3931), new Color(0x701710)};
+    new Color(0xbe5e56), new Color(0x9c3931), new Color(0x701710),
+    new Color(0x3e5e56), new Color(0x7c3931), new Color(0x501710),
+    new Color(0x8e5e56), new Color(0xc3931), new Color(0x501710),};
   private final Board board;
   private final int side;
   private final Color gridColor = new Color(0xBBADA0);
@@ -112,7 +114,7 @@ public class GameEngine2048 extends JPanel {
       private void move() {
         try {
           System.out.println("sleep");
-          Thread.sleep(1);
+          Thread.sleep(0);
         } catch (InterruptedException ex) {
           ex.printStackTrace();
         }
@@ -198,7 +200,8 @@ public class GameEngine2048 extends JPanel {
   void drawTile(Graphics2D graphics2D, int row, int column) {
     int value = board.getTiles()[row][column].getValue();
 
-    graphics2D.setColor(colorTable[(int) (Math.log(value) / Math.log(2)) + 1]);
+    int color = (int) ((Math.log(value) / Math.log(2)) + 1) % Integer.MAX_VALUE;
+    graphics2D.setColor(colorTable[color]);
     graphics2D.fillRoundRect(215 + column * 121, 115 + row * 121, 106, 106, 7, 7);
     String string = String.valueOf(value);
 

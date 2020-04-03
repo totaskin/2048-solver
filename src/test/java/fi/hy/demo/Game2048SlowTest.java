@@ -2,7 +2,7 @@ package fi.hy.demo;
 
 import fi.hy.demo.bot.BotNotFoundException;
 import fi.hy.demo.bot.GameScore;
-import fi.hy.demo.plot.Plot;
+import fi.hy.demo.libs.Plot;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
@@ -13,8 +13,8 @@ class Game2048SlowTest {
   @Test
   void testMonteCarlo() throws Exception, BotNotFoundException {
     Game2048 game2048 = new Game2048();
-    int runs = 22;
-    int repets = 10;
+    int runs = 8;
+    int repets = 8;
     int scores[] = new int[runs];
     int highest[] = new int[runs];
     int times[] = new int[runs];
@@ -23,11 +23,15 @@ class Game2048SlowTest {
       int high = 0;
       int time = 0;
       for (int j = 0; j < repets; j++) {
-        GameScore gameScore = game2048.runBot("monte carlo", (i + 1) * 10);
+        long start = System.currentTimeMillis();
+        GameScore gameScore = game2048.runBot("monte-carlo", (i + 1) * 10);
         score += gameScore.getScore();
         high += gameScore.getHighest();
         time += gameScore.getTime();
-        System.out.println("round " + j);
+        long end = System.currentTimeMillis();
+
+        long timerunning = end - start;
+        System.out.println("round " + j + ", " + timerunning);
       }
       scores[i] = score / repets;
       highest[i] = high / repets;
@@ -50,11 +54,12 @@ class Game2048SlowTest {
       int high = 0;
       int time = 0;
       for (int j = 0; j < repets; j++) {
+
         GameScore gameScore = game2048.runBot("random", (i + 1) * 10);
         score += gameScore.getScore();
         high += gameScore.getHighest();
         time += gameScore.getTime();
-        System.out.println("round " + j);
+
       }
       scores[i] = score / repets;
       highest[i] = high / repets;
@@ -62,6 +67,24 @@ class Game2048SlowTest {
       System.out.println("run " + i);
     }
     printScores(scores, highest, times, runs, "random-bot");
+  }
+
+  @Test
+  void testWithRuns() throws BotNotFoundException, Exception {
+    int score = 0;
+    int high = 0;
+    int time = 0;
+    int repets = 10;
+    int runs = 600;
+    for (int i = 0; i < repets; i++) {
+      Game2048 game2048 = new Game2048();
+      GameScore gameScore = game2048.runBot("MCPP", runs);
+      score += gameScore.getScore();
+      high += gameScore.getHighest();
+      time += gameScore.getTime();
+      System.out.println(gameScore.getScore() + ", " + gameScore.getHighest() + ", " + gameScore.getTime());
+    }
+    System.out.println("averages" + score / repets + ", " + high / repets + ", " + time / repets);
   }
 
   private void printScores(int[] scores, int[] highest, int[] times, int runs, String fileName) throws IOException {
@@ -83,6 +106,7 @@ class Game2048SlowTest {
       .series("Keskimääräinen tulos", highestData, Plot.seriesOpts().
         color(Color.RED));
     plot.save(fileName, "png");
+
 
   }
 

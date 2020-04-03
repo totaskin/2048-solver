@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Board {
 
-  final int target = 2048;
+  final int target = 4096;
   private final int side = 4;
   private final Random rand = new Random();
   private Tile[][] tiles;

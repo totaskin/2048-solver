@@ -11,7 +11,7 @@ Dokumentointia ja monte carlon pelipuiden tekemistä. Ensimmäiset yksikkötesti
 # Viikko 4 
 Lisätty checkstyle ja korjattu tuloksien perusteella lähdekoodia. Lisätty javadoc:t tiedostoihin. Tehty refaktorointia 
 koodiin mahdollistaen helpomman jatkokehityksen. Lisätty testeihin mahdollisuus luoda kuvatiedosto tuloksien graafista
-esitystä varten. 
+esitystä varten. Tehty Monte Carlon pelipuu ja raportoitu tulokset restuas dokumentissa.
 
 Seuraavaksi: 
 Lisätään mahdollisuus katsoa javadoc tietoja. Dokumentaation parantamista ja algorimin tarkempaa tutkimista.

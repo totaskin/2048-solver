@@ -1,4 +1,5 @@
-package fi.hy.demo.plot;
+package fi.hy.demo.libs;
+
 
 import javax.imageio.ImageIO;
 import java.awt.BasicStroke;
@@ -295,7 +296,7 @@ public class Plot {
       FontMetrics fm = g.getFontMetrics();
       Rectangle2D titleRect = fm.getStringBounds(opts.title, g);
       g.setFont(opts.labelFont);
-			int xAxesHeight = 0, xAxesHalfWidth = 0;
+      int xAxesHeight = 0, xAxesHalfWidth = 0;
       for (Map.Entry<String, Axis> entry : xAxes.entrySet()) {
         Axis xAxis = entry.getValue();
         xAxesHeight += toInt(xAxis.labelRect.getHeight()) + opts.labelPadding * 2;
@@ -431,7 +432,7 @@ public class Plot {
         }
       }
       Map<String, Axis> axes = isX ? xAxes : yAxes;
-			axes.values().removeIf(axis -> axis.opts.range == null);
+      axes.values().removeIf(axis -> axis.opts.range == null);
     }
 
     private void drawAxes(Graphics2D g) {
