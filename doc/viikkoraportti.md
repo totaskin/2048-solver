@@ -15,4 +15,4 @@ esitystä varten. Tehty Monte Carlon pelipuu ja raportoitu tulokset restuas doku
 
 Seuraavaksi: 
 Lisätään mahdollisuus katsoa javadoc tietoja. Dokumentaation parantamista ja algorimin tarkempaa tutkimista.
-Verrataan algoritmeja toisiinsa.
+Verrataan algoritmeja toisiinsa. Yksikkötestausta ja testikattavuuden raportointi.
