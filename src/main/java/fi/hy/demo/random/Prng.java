@@ -1,20 +1,20 @@
 package fi.hy.demo.random;
 
-public interface PRNG {
+public interface Prng {
   /**
    * Returns pseudo-random integer in range [Integer.MIN_VALUE, Integer.MAX_VALUE]
    */
   int nextInt();
 
   class Smart {
-    private final PRNG origin;
+    private final Prng origin;
 
-    public Smart(PRNG origin) {
+    public Smart(Prng origin) {
       this.origin = origin;
     }
 
     /**
-     * Returns pseudo-random double in range [0, 1)
+     * Returns pseudo-random double in range [0, 1).
      */
     public double nextDouble() {
       return Math.abs(origin.nextInt() / ((double) Integer.MAX_VALUE + 2));
@@ -25,7 +25,7 @@ public interface PRNG {
     }
 
     /**
-     * Returns pseudo-random integer in range [lowerLimit, upperLimit]
+     * Returns pseudo-random integer in range [lowerLimit, upperLimit].
      * @param lowerLimit Lower limit of range
      * @param upperLimit Upper limit of range
      * @throws IllegalArgumentException if the lowerLimit is greater than or equal to the upperLimit
@@ -51,7 +51,7 @@ public interface PRNG {
     }
 
     /**
-     * Returns pseudo-random integer in range [0, upperLimit]
+     * Returns pseudo-random integer in range [0, upperLimit].
      *
      * @param upperLimit Upper limit of range
      * @throws IllegalArgumentException if the upperLimit is not positive
@@ -64,28 +64,28 @@ public interface PRNG {
     }
 
     /**
-     * Returns pseudo-random boolean
+     * Returns pseudo-random boolean.
      */
     public boolean nextBoolean() {
       return nextInt(1) == 1;
     }
 
     /**
-     * Returns pseudo-random byte
+     * Returns pseudo-random byte.
      */
     public byte nextByte() {
       return (byte) nextInt(Byte.MIN_VALUE, Byte.MAX_VALUE);
     }
 
     /**
-     * Returns pseudo-random short
+     * Returns pseudo-random short.
      */
     public short nextShort() {
       return (short) nextInt(Short.MIN_VALUE, Short.MAX_VALUE);
     }
 
     /**
-     * Returns pseudo-random char
+     * Returns pseudo-random char.
      */
     public char nextChar() {
       return (char) nextInt(Character.MIN_VALUE, Character.MAX_VALUE);

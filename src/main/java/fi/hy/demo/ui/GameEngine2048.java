@@ -4,7 +4,6 @@ import fi.hy.demo.bot.Bot;
 import fi.hy.demo.bot.Direction;
 import fi.hy.demo.engine.Board;
 import fi.hy.demo.engine.State;
-
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,7 +18,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;

@@ -26,7 +26,7 @@ public class Game2048 {
   }
 
   /**
-   * Method to run bot without UI
+   * Method to run bot without UI.
    *
    * @param botName Name of the bot to run with.
    * @param runs    How many iterations to run bot

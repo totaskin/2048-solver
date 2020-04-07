@@ -4,11 +4,18 @@ public final class IntRange {
   private final int lowerLimit;
   private final int upperLimit;
 
+  /**
+   * Constructor for intRange.
+   *
+   * @param lowerLimit lower bound to be used.
+   * @param upperLimit upper bound to be used.
+   */
   public IntRange(int lowerLimit, int upperLimit) {
     super();
     if (lowerLimit >= upperLimit) {
       throw new IllegalArgumentException(String.format(
-        "upperLimit must be greater than lowerLimit, yet values are: lowerLimit = %d, upperLimit = %d",
+        "upperLimit must be greater than lowerLimit, "
+          + "yet values are: lowerLimit = %d, upperLimit = %d",
         lowerLimit, upperLimit));
     }
     this.lowerLimit = lowerLimit;
