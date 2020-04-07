@@ -34,6 +34,9 @@ public class Board {
     this.gamestate = gamestate;
   }
 
+  public void setState(State state) {
+    this.gamestate = state;
+  }
   private boolean move(int countDownFrom, int incrementY, int incrementX) {
     boolean moved = false;
 

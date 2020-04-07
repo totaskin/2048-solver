@@ -4,6 +4,10 @@ import fi.hy.demo.bot.Bot;
 import fi.hy.demo.bot.Direction;
 import fi.hy.demo.engine.Board;
 import fi.hy.demo.engine.State;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,9 +22,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 public class GameEngine2048 extends JPanel {
 
@@ -145,11 +146,19 @@ public class GameEngine2048 extends JPanel {
     drawGrid(graphics2D);
   }
 
+  void setGameState(State state) {
+    this.board.setState(state);
+  }
+
+  void restartGame() {
+    board.restartGame();
+  }
 
   void drawGrid(Graphics2D graphics2Dg) {
     graphics2Dg.setColor(gridColor);
     graphics2Dg.fillRoundRect(200, 100, 499, 499, 15, 15);
 
+    System.out.println(board.getGameState());
     if (board.getGameState() == State.running) {
 
       for (int r = 0; r < side; r++) {
@@ -227,7 +236,7 @@ public class GameEngine2048 extends JPanel {
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.setTitle("2048");
       frame.setResizable(true);
-      frame.add(new GameEngine2048(bot), BorderLayout.CENTER);
+      frame.add(this, BorderLayout.CENTER);
       frame.pack();
       frame.setLocationRelativeTo(null);
       frame.setVisible(true);
