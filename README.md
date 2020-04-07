@@ -11,8 +11,9 @@ Java client for 2048 game and AI to solve game
 mvn install
 java -jar target/2048-solver-0.0.1-SNAPSHOT.jar 
 ```
-press <enter> to start game on UI.
-press <Space> to run bot.
+press `<enter>` to start game on UI.
+
+press `<Space>` to run bot.
 ## Solution
 
 Purpose is to implement Monte Carlo tree search to solve 2048 game.
