@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mock;
 
-import javax.swing.JPanel;
-
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doNothing;
@@ -22,13 +22,11 @@ import static org.mockito.Mockito.spy;
 class GameEngine2048Test {
 
   @Mock
-  private JPanel jPanel;
-
-  @Mock
   private GameEngine2048 gameEngine2048;
 
   @Mock
   private Graphics2D graphics2D;
+
 
   @BeforeAll
   public void setUp() throws  BotNotFoundException {
@@ -50,10 +48,15 @@ class GameEngine2048Test {
   }
 
   @Test
-  public void testStartBot() throws BotNotFoundException {
+  public void testStartBot() throws BotNotFoundException, InvocationTargetException, InterruptedException {
     Bot randomBot = BotFactory.getBot("random", 10);
     gameEngine2048.startGame(randomBot);
-    gameEngine2048.repaint();
+    gameEngine2048.pressKey(KeyEvent.VK_ENTER);
+    gameEngine2048.pressKey(KeyEvent.VK_UP);
+    gameEngine2048.pressKey(KeyEvent.VK_DOWN);
+    gameEngine2048.pressKey(KeyEvent.VK_LEFT);
+    gameEngine2048.pressKey(KeyEvent.VK_RIGHT);
+    gameEngine2048.pressKey(KeyEvent.VK_UNDEFINED);
     assertNotNull(gameEngine2048);
   }
 

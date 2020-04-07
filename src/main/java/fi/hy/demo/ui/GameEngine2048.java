@@ -20,8 +20,7 @@ import java.awt.RenderingHints;
 import java.awt.Robot;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.lang.reflect.InvocationTargetException;
 
 public class GameEngine2048 extends JPanel {
 
@@ -55,18 +54,12 @@ public class GameEngine2048 extends JPanel {
     setFont(new Font("SansSerif", Font.BOLD, 48));
     setFocusable(true);
 
-    addMouseListener(new MouseAdapter() {
-      @Override
-      public void mousePressed(MouseEvent mouseEvent) {
-        board.restartGame();
-        repaint();
-      }
-    });
     addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
           case KeyEvent.VK_ENTER:
+            board.restartGame();
             startBot();
             break;
           case KeyEvent.VK_UP:
@@ -90,6 +83,12 @@ public class GameEngine2048 extends JPanel {
     });
   }
 
+  public void pressKey(int keycode) throws InvocationTargetException, InterruptedException {
+    KeyEvent e = new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, keycode, (char) keycode);
+    this.getKeyListeners()[0].keyPressed(e);
+  }
+
+
   private void startBot() {
     if (this.thread != null) {
       thread.interrupt();
@@ -101,13 +100,12 @@ public class GameEngine2048 extends JPanel {
       public void run() {
         try {
           this.robObject = new Robot();
-        } catch (AWTException exeption) {
-          exeption.printStackTrace();
+        } catch (AWTException e) {
+          e.printStackTrace();
         }
         while (board.getGameState() == State.running) {
           move();
         }
-        System.out.println("endded" + board.getGameState());
       }
 
       private void move() {
