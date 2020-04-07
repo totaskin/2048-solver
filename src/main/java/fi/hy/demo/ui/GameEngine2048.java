@@ -58,9 +58,14 @@ public class GameEngine2048 extends JPanel {
       @Override
       public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
+          case KeyEvent.VK_SPACE:
+            if( board.getGameState() != State.running ) {
+              board.restartGame();
+            }
+            startBot();
+            break;
           case KeyEvent.VK_ENTER:
             board.restartGame();
-            startBot();
             break;
           case KeyEvent.VK_UP:
             board.moveUp();
@@ -196,8 +201,8 @@ public class GameEngine2048 extends JPanel {
       }
 
       graphics2Dg.setColor(gridColor);
-      graphics2Dg.drawString("click to start a new game", 330, 470);
-      graphics2Dg.drawString("press enter to start bot", 340, 500);
+      graphics2Dg.drawString("press enter to start game", 330, 470);
+      graphics2Dg.drawString("press space to run bot", 340, 500);
       graphics2Dg.drawString("(use arrow keys to move tiles)", 310, 530);
     }
   }
