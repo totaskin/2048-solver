@@ -44,7 +44,7 @@ class Game2048SlowTest {
   @Test
   void testRandomBot() throws Exception, BotNotFoundException {
     Game2048 game2048 = new Game2048();
-    int runs = 22;
+    int runs = 5;
     int repets = 10;
     int scores[] = new int[runs];
     int highest[] = new int[runs];
