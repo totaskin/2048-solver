@@ -13,6 +13,13 @@ Lisätty checkstyle ja korjattu tuloksien perusteella lähdekoodia. Lisätty jav
 koodiin mahdollistaen helpomman jatkokehityksen. Lisätty testeihin mahdollisuus luoda kuvatiedosto tuloksien graafista
 esitystä varten. Tehty Monte Carlon pelipuu ja raportoitu tulokset restuas dokumentissa.
 
+# Viikko 5
+
+# Viikko 6 
+Lisää testejä ja projektin viimeistelyä. 
+
+
+
 Seuraavaksi: 
 Lisätään mahdollisuus katsoa javadoc tietoja. Dokumentaation parantamista ja algorimin tarkempaa tutkimista.
 Verrataan algoritmeja toisiinsa. Yksikkötestausta ja testikattavuuden raportointi.
