@@ -11,12 +11,11 @@ import fi.hy.demo.engine.State;
 /**
  * Monte Carlo bot for 2048 game.
  */
-public class MonteCarloPelipuu implements Bot {
+public class MonteCarloGameTree implements Bot {
 
   private final Integer runs;
 
-  public MonteCarloPelipuu(Integer runs) {
-    System.out.println("runs " + runs);
+  public MonteCarloGameTree(Integer runs) {
     this.runs = runs;
   }
 
@@ -36,7 +35,7 @@ public class MonteCarloPelipuu implements Bot {
     return getDirection(moveUpScore, moveDownCount, moveRightScore, moveLeftScore);
   }
 
-  private long getScore(Board board, Direction direction) {
+  protected long getScore(Board board, Direction direction) {
     long tileScore = 0;
     for (int i = 0; i < runs; i++) {
       Board boardCopy = board.copyBoard();
@@ -52,7 +51,7 @@ public class MonteCarloPelipuu implements Bot {
     return tileScore / runs;
   }
 
-  private Direction getRandom() {
+  protected Direction getRandom() {
     int random = (int) (Math.random() * 4);
     switch (random) {
       case 1:

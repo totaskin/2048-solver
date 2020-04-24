@@ -38,7 +38,6 @@ class GameEngine2048Test {
     doNothing().when(gameEngine2048).repaint();
     BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     graphics2D = image.createGraphics();
-
   }
 
   @Test

@@ -17,7 +17,7 @@ public class BotFactory {
     if (botName.equals("monte carlo")) {
       return new MonteCarlo(runs);
     } else if (botName.equals("MCPP")) {
-      return new MonteCarloPelipuu(runs);
+      return new MonteCarloGameTree(runs);
     } else if (botName.equals("random")) {
       return new RandomBot();
     }
