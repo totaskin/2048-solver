@@ -14,6 +14,7 @@ koodiin mahdollistaen helpomman jatkokehityksen. Lisätty testeihin mahdollisuus
 esitystä varten. Tehty Monte Carlon pelipuu ja raportoitu tulokset restuas dokumentissa.
 
 # Viikko 5
+Korjauksia kommenttien ja katselmonnin perusteella.
 
 # Viikko 6 
 Lisää testejä ja projektin viimeistelyä. 
