@@ -2,6 +2,7 @@ package fi.hy.demo.bot;
 
 import fi.hy.demo.engine.Board;
 import fi.hy.demo.engine.State;
+import fi.hy.demo.random.CustomRandom;
 
 /**
  * Monte Carlo bot for 2048 game.
@@ -9,9 +10,11 @@ import fi.hy.demo.engine.State;
 public class MonteCarlo implements Bot {
 
   private final Integer runs;
+  private final CustomRandom customRandom;
 
   public MonteCarlo(Integer runs) {
     this.runs = runs;
+    this.customRandom = new CustomRandom();
   }
 
   /**
@@ -85,7 +88,7 @@ public class MonteCarlo implements Bot {
   }
 
   private int getRandom() {
-    return (int) (Math.random() * 4);
+    return customRandom.nextInt(4);
   }
 
   /**

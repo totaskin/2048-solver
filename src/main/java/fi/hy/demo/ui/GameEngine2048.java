@@ -4,10 +4,6 @@ import fi.hy.demo.bot.Bot;
 import fi.hy.demo.bot.Direction;
 import fi.hy.demo.engine.Board;
 import fi.hy.demo.engine.State;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,7 +16,9 @@ import java.awt.RenderingHints;
 import java.awt.Robot;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.lang.reflect.InvocationTargetException;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class GameEngine2048 extends JPanel {
 
@@ -59,7 +57,7 @@ public class GameEngine2048 extends JPanel {
       public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
           case KeyEvent.VK_SPACE:
-            if( board.getGameState() != State.running ) {
+            if (board.getGameState() != State.running) {
               board.restartGame();
             }
             startBot();
@@ -80,7 +78,6 @@ public class GameEngine2048 extends JPanel {
             board.moveRight();
             break;
           default:
-            System.out.println("no-op");
             break;
         }
         repaint();
@@ -88,8 +85,14 @@ public class GameEngine2048 extends JPanel {
     });
   }
 
-  public void pressKey(int keycode) throws InvocationTargetException, InterruptedException {
-    KeyEvent e = new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, keycode, (char) keycode);
+  /**
+   * Method to simulate key press event.
+   *
+   * @param keycode which key to simulate
+   */
+  public void pressKey(int keycode) {
+    long currentTime = System.currentTimeMillis();
+    KeyEvent e = new KeyEvent(this, KeyEvent.KEY_PRESSED, currentTime, 0, keycode, (char) keycode);
     this.getKeyListeners()[0].keyPressed(e);
   }
 
@@ -115,7 +118,6 @@ public class GameEngine2048 extends JPanel {
 
       private void move() {
         try {
-          System.out.println("sleep");
           Thread.sleep(0);
         } catch (InterruptedException ex) {
           ex.printStackTrace();
@@ -161,7 +163,6 @@ public class GameEngine2048 extends JPanel {
     graphics2Dg.setColor(gridColor);
     graphics2Dg.fillRoundRect(200, 100, 499, 499, 15, 15);
 
-    System.out.println(board.getGameState());
     if (board.getGameState() == State.running) {
 
       for (int r = 0; r < side; r++) {

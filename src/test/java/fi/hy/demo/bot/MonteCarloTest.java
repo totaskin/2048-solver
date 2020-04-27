@@ -35,4 +35,5 @@ class MonteCarloTest {
     Direction direction = monteCarlo.getDirection(4, 5, 6, 8);
     assertThat(direction, is(equalTo(Direction.LEFT)));
   }
+
 }

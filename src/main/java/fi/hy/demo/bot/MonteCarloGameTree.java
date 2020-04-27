@@ -7,16 +7,19 @@ import static fi.hy.demo.bot.Direction.UP;
 
 import fi.hy.demo.engine.Board;
 import fi.hy.demo.engine.State;
-
+import fi.hy.demo.random.CustomRandom;
 /**
  * Monte Carlo bot for 2048 game.
  */
+
 public class MonteCarloGameTree implements Bot {
 
   private final Integer runs;
+  private final CustomRandom customRandom;
 
   public MonteCarloGameTree(Integer runs) {
     this.runs = runs;
+    this.customRandom = new CustomRandom();
   }
 
   /**
@@ -31,7 +34,6 @@ public class MonteCarloGameTree implements Bot {
     long moveDownCount = getScore(board, DOWN);
     long moveLeftScore = getScore(board, LEFT);
     long moveRightScore = getScore(board, RIGHT);
-
     return getDirection(moveUpScore, moveDownCount, moveRightScore, moveLeftScore);
   }
 
@@ -52,7 +54,7 @@ public class MonteCarloGameTree implements Bot {
   }
 
   protected Direction getRandom() {
-    int random = (int) (Math.random() * 4);
+    int random = customRandom.nextInt(4) + 1;
     switch (random) {
       case 1:
         return UP;

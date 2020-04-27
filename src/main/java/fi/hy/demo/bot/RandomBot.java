@@ -1,11 +1,18 @@
 package fi.hy.demo.bot;
 
 import fi.hy.demo.engine.Board;
+import fi.hy.demo.random.CustomRandom;
 
 /**
  * Random bot that makes pseudo random moves.
  */
 public class RandomBot implements Bot {
+
+  private final CustomRandom customRandom;
+
+  public RandomBot() {
+    this.customRandom = new CustomRandom();
+  }
 
   /**
    * Decide move return random direction.
@@ -15,12 +22,12 @@ public class RandomBot implements Bot {
    */
   @Override
   public Direction decideMove(Board tiles) {
-    double random = Math.random();
-    if (random < 0.25) {
+    int random = customRandom.nextInt(3);
+    if (random == 0) {
       return Direction.UP;
-    } else if (random < 0.5) {
+    } else if (random == 1) {
       return Direction.RIGHT;
-    } else if (random < 0.75) {
+    } else if (random == 2) {
       return Direction.DOWN;
     } else {
       return Direction.LEFT;

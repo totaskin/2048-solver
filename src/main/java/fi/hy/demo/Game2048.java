@@ -20,7 +20,7 @@ public class Game2048 {
    * @param args Can give how many rounds to iterage.
    */
   public static void main(String[] args) throws BotNotFoundException {
-    Bot bot = BotFactory.getBot("MCPP", 2000);
+    Bot bot = BotFactory.getBot("MCPP", 1000);
     GameEngine2048 gameEngine2048 = new GameEngine2048(bot);
     gameEngine2048.startGame(bot);
   }
@@ -40,13 +40,8 @@ public class Game2048 {
 
     Bot bot = BotFactory.getBot(botName, runs);
     long startTime = System.currentTimeMillis();
-    long round = 0;
     while (State.running.equals(board.getGameState())) {
       Direction direction = bot.decideMove(board);
-      round++;
-      if (round % 100 == 0) {
-        // System.out.println("round 100");
-      }
       switch (direction) {
         case UP:
           board.moveUp();

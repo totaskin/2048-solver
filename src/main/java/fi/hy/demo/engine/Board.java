@@ -1,22 +1,26 @@
 package fi.hy.demo.engine;
 
 
-import java.util.Random;
+import fi.hy.demo.random.CustomRandom;
 
 public class Board {
 
   final int target = 4096;
   private final int side = 4;
-  private final Random rand = new Random();
+  private CustomRandom rand;
   private Tile[][] tiles;
   private int highest;
   private long score;
   private State gamestate = State.start;
   private boolean checkingAvailableMoves;
 
+  /**
+   * Constructor to craete new board.
+   */
   public Board() {
     this.score = 0;
     this.highest = 0;
+    this.rand = new CustomRandom();
   }
 
   /**
@@ -32,11 +36,13 @@ public class Board {
     this.score = score;
     this.highest = highest;
     this.gamestate = gamestate;
+    this.rand = new CustomRandom();
   }
 
   public void setState(State state) {
     this.gamestate = state;
   }
+
   private boolean move(int countDownFrom, int incrementY, int incrementX) {
     boolean moved = false;
 
