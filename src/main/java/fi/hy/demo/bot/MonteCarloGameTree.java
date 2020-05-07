@@ -22,6 +22,11 @@ public class MonteCarloGameTree implements Bot {
     this.customRandom = new CustomRandom();
   }
 
+  public MonteCarloGameTree(int runs, fi.hy.demo.random.CustomRandom customRandom) {
+    this.runs = runs;
+    this.customRandom = customRandom;
+  }
+
   /**
    * Decide move return random direction.
    *

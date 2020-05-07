@@ -14,6 +14,11 @@ public class RandomBot implements Bot {
     this.customRandom = new CustomRandom();
   }
 
+  public RandomBot(fi.hy.demo.random.CustomRandom customRandom) {
+    this.customRandom = customRandom;
+
+  }
+
   /**
    * Decide move return random direction.
    *

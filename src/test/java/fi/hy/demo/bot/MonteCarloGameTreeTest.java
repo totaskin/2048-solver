@@ -2,12 +2,16 @@ package fi.hy.demo.bot;
 
 import fi.hy.demo.engine.Board;
 import fi.hy.demo.engine.State;
+import fi.hy.demo.random.CustomRandom;
 import org.junit.jupiter.api.Test;
 
+import static fi.hy.demo.bot.Direction.UP;
+import static fi.hy.demo.engine.State.running;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isOneOf;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,7 +31,7 @@ class MonteCarloGameTreeTest {
     assertThat(direction, is(equalTo(Direction.DOWN)));
 
     direction = bot.getDirection(7, 6, 5, 4);
-    assertThat(direction, is(equalTo(Direction.UP)));
+    assertThat(direction, is(equalTo(UP)));
   }
 
   @Test
@@ -42,7 +46,7 @@ class MonteCarloGameTreeTest {
   public void testMoveUp() {
     MonteCarloGameTree bot = new MonteCarloGameTree(1);
     Board mock = mock(Board.class);
-    bot.makeMove(Direction.UP, mock);
+    bot.makeMove(UP, mock);
     verify(mock).moveUp();
   }
 
@@ -67,7 +71,7 @@ class MonteCarloGameTreeTest {
     MonteCarloGameTree bot = new MonteCarloGameTree(1);
     for( int i = 0; i< 100; i++) {
       Direction random = bot.getRandom();
-      assertThat(random, isOneOf(Direction.DOWN, Direction.UP, Direction.LEFT, Direction.RIGHT));
+      assertThat(random, isOneOf(Direction.DOWN, UP, Direction.LEFT, Direction.RIGHT));
     }
   }
 
@@ -84,4 +88,22 @@ class MonteCarloGameTreeTest {
     assertThat(score, is(100l));
 
   }
+
+  @Test
+  public void shouldDecideMove() {
+    Board boardMock = mock(Board.class);
+    CustomRandom randomMock = mock(CustomRandom.class);
+    MonteCarloGameTree bot = new MonteCarloGameTree(1, randomMock);
+    when(boardMock.copyBoard()).thenReturn(boardMock);
+    when(boardMock.getGameState())
+      .thenReturn(running)
+      .thenReturn(fi.hy.demo.engine.State.over);
+    when(randomMock.nextInt(anyInt())).thenReturn(2);
+
+    when(boardMock.getScore()).thenReturn(14l);
+
+    Direction direction = bot.decideMove(boardMock);
+    assertThat(direction, is(UP));
+  }
+
 }

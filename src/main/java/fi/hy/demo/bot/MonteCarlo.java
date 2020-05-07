@@ -17,6 +17,11 @@ public class MonteCarlo implements Bot {
     this.customRandom = new CustomRandom();
   }
 
+  public MonteCarlo(Integer runs, CustomRandom customRandom) {
+    this.runs = runs;
+    this.customRandom = customRandom;
+  }
+
   /**
    * Decide move return random direction.
    *
@@ -49,19 +54,20 @@ public class MonteCarlo implements Bot {
         //generate random next move
         input = getRandom();
 
+        System.out.println("input " + input);
         makeMove(input, boardCopy);
 
         if (count == 0) {
           firstMove = input;
-          if (input == 0) {
-            moveUpCount++;
-          } else if (input == 1) {
-            moveDownCount++;
-          } else if (input == 2) {
-            moveRightCount++;
-          } else if (input == 3) {
-            moveLeftCount++;
-          }
+        }
+        if (input == 0) {
+          moveUpCount++;
+        } else if (input == 1) {
+          moveDownCount++;
+        } else if (input == 2) {
+          moveRightCount++;
+        } else if (input == 3) {
+          moveLeftCount++;
         }
         count++;
       }
