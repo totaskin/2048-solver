@@ -31,3 +31,5 @@ Purpose is to implement Monte Carlo tree search to solve 2048 game.
 [Testaus dokumentti](doc/testaus.md)
 
 [Viikko raportti](doc/viikkoraportti.md)
+
+[Käyttöohje](doc/käyttöohje.md)

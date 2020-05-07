@@ -41,7 +41,7 @@ Testataan kaikki luokan metodit erilaisilla syötteillä, rajattuna hyviin tapau
 |  7 |  512 | 4081  | 7020  |   
 |  9 | 1024  |  6515 |  16172 |   
 |  10 | 2048  | 10640  | 36108  |  
-|  keskiarvo | 8921  | 8921  | 29494  |  
+|  keskiarvo | 1894  | 8921  | 29494  |  
 
 
 ### Monte Carlo Pelipuut 600 -suoritusta 
@@ -70,15 +70,36 @@ kasvaa lineaarisesti.
 
 ![Suoritskyky](monte-carlo.png)
 
-# Monte Carlon pelipuut
 
 # Random bot
 
 Random bot suoriutuu vakioajassa ja tulokset pysyvät alhaisina, kuten kuvasta huomataan.
 ![Suoritskyky](random-bot.png)
 
+# Oma pelaaminen
+|  Suorituskerta | Korkein |  Aika  | Tulos  |
+|---|---|---|---|
+|  1 |  128 | 12000  |   |  
+|  2 |  256 |  12000 |   |  
+|  3 |  128 |  12000 |   |  
+|  8 |  128 |  15000 |   |  
+|  4 |  256 | 18000  |   |  
+|  5 |  512 |  24000 |   |  
+|  6 |  128 |   |   |  
+|  7 | 256  |  18000 |   |   
+|  9 |  256 |  18000 |   |   
+|  10 |  512 |  28000 |   |  
+|  keskiarvo | 256  |   |   |  
+
 
 # Yhteenveto
 
-Random bot pääsee parhaimmillaan noin `83%` monte-carlo botin tuloksesta, kun monte-carlia suoritetaan 10-iteraation 
-parametrilla.  
+ Paras algoritmi on monte-carlin pelipuu joka sai keskiarvoksi 2355, 600 suorituksella. 
+ Monte carlo algoritmihäviää pienellä `n-arvolla` ihmispelaajalle, mutta kierrosten lisääntyessä voittaa ihmispelaajan. 
+ Random bot suoruituu vakioajassa ja saa huonoimmat tulokset kaikista vertailtavista. 
+ 
+ Pelaamalla huomaa, että tietyt liikkeet ovat lopputuloksen kannalta parempia, joten 
+ pelissä näyttäisi olevan myös mahdollista tulla taitavammaksi ja täten saada parempia tuloksia. 
+ Tämän huomion pohjalta voisi hyvin toteuttaa koneoopimiseen perustuvan algoritmin ja nähkä miten 
+ se pärjäisi verrattuna monte-carloon ja ihmiseen.    
+  
